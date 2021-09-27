@@ -10,12 +10,12 @@ import _ from 'lodash'
 export default function CourseList() {
     const { user, error } = useUser()
     //const { data: courses, error: courseError } = useRequest<Course[]>({
-    //    url: `${process.env.NEXT_PUBLIC_API_URL}/course/list`,
+    //    url: '/course/list',
     //})
     const courses: Course[] = [
         {
             id: 'asduhqdw',
-            name: 'DDP-0 Tutor',
+            name: 'SUPER SUPER SUPER SUPER SUPER SUPER SUPER SUPER SUPER SUPER SUPER SUPER SUPER SUPER SUPER ',
             matkul: 'DDP',
             datetime: '21 Desember 2021',
             teacher: 'Budi my man',
@@ -28,7 +28,7 @@ export default function CourseList() {
             name: 'DDP-0 Tutor',
             matkul: 'DDP',
             datetime: '21 Desember 2021',
-            teacher: 'Budi my man',
+            teacher: 'Raden Mohamad Adrian Ramadhan Hendar Wibawa',
             students_count: 22,
             students_limit: null,
             is_enrolled: false,
