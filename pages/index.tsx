@@ -5,8 +5,7 @@ import { useSWRConfig } from 'swr'
 import { useEffect } from 'react'
 
 export default function Home() {
-    const { user, loggedOut } = useUser()
-    const { mutate } = useSWRConfig()
+    const { user, loggedOut, mutate } = useUser()
     const router = useRouter()
 
     useEffect(() => {
@@ -23,7 +22,7 @@ export default function Home() {
         )
         window.addEventListener('message', (event) => {
             openedWindow.close()
-            mutate('/me')
+            mutate()
         })
     }
 

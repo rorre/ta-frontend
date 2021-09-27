@@ -15,41 +15,76 @@ import toast from 'react-hot-toast'
 import moment from 'moment-timezone'
 import { useUser } from '../utils/fetchers'
 import Link from 'next/link'
+import { KeyedMutator, useSWRConfig } from 'swr'
 
 interface CourseProps {
     course: Course
+    mutateCourse: KeyedMutator<any>
 }
 
-const CourseCard: React.FC<CourseProps> = ({ course }) => {
-    const { user } = useUser()
+const CourseCard: React.FC<CourseProps> = ({ course, mutateCourse }) => {
+    const { mutate } = useSWRConfig()
+    const { user, isLoading } = useUser()
     const courseTime = moment(course.datetime)
     const currentTime = moment.tz('Asia/Jakarta')
+
+    if (isLoading) return <></>
 
     const showEnroll = courseTime > currentTime && !course.is_enrolled
     const showUnenroll = course.is_enrolled
     const showAdmin = course.teacher_npm == user.npm
 
-    async function enrollChange() {
+    function enrollChange() {
         let path = course.is_enrolled ? 'unenroll' : 'enroll'
-        toast.promise(
-            axios.post(`${process.env.NEXT_PUBLIC_API_URL}/course/${course.id}/${path}`, null, {
-                withCredentials: true,
-            }),
-            {
-                loading: 'Enrolling...',
-                success: () => {
-                    course.is_enrolled = !course.is_enrolled
-                    return 'Enrolled!'
-                },
-                error: (err) => {
-                    if (err.response) {
-                        return err.response.data.detail
-                    } else {
-                        return 'An error has occured.'
-                    }
-                },
-            }
-        )
+        toast
+            .promise(
+                axios.post(`${process.env.NEXT_PUBLIC_API_URL}/course/${course.id}/${path}`, null, {
+                    withCredentials: true,
+                }),
+                {
+                    loading: 'Enrolling...',
+                    success: () => {
+                        course.is_enrolled = !course.is_enrolled
+                        return 'Enrolled!'
+                    },
+                    error: (err) => {
+                        if (err.response) {
+                            return err.response.data.detail
+                        } else {
+                            return 'An error has occured.'
+                        }
+                    },
+                }
+            )
+            .then(() => {
+                mutateCourse()
+            })
+    }
+
+    function deleteCourse() {
+        toast
+            .promise(
+                axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/course/${course.id}/delete`, {
+                    withCredentials: true,
+                }),
+                {
+                    loading: 'Removing...',
+                    success: () => {
+                        course.is_enrolled = !course.is_enrolled
+                        return 'Removed!'
+                    },
+                    error: (err) => {
+                        if (err.response) {
+                            return err.response.data.detail
+                        } else {
+                            return 'An error has occured.'
+                        }
+                    },
+                }
+            )
+            .then(() => {
+                mutateCourse()
+            })
     }
 
     return (
@@ -96,7 +131,10 @@ const CourseCard: React.FC<CourseProps> = ({ course }) => {
                                     <FontAwesomeIcon icon={faEdit} />
                                 </button>
                             </Link>
-                            <button className="rounded-md border bg-red-600 text-white py-1 px-2">
+                            <button
+                                onClick={deleteCourse}
+                                className="rounded-md border bg-red-600 text-white py-1 px-2"
+                            >
                                 <FontAwesomeIcon icon={faTrash} />
                             </button>
                         </>

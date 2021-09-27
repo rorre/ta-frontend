@@ -4,25 +4,27 @@ import { DetailedCourse, User } from './types'
 import useRequest from './swr'
 
 function useUser() {
-    const { data, error } = useRequest<User>({ url: '/me' })
+    const { data, error, mutate } = useRequest<User>({ url: '/me' })
     const loggedOut = error && error.response && error.response.status === 401
 
     return {
         user: data,
-        error: error,
-        loggedOut: loggedOut,
+        error,
+        loggedOut,
+        mutate,
         isLoading: !error && !data,
     }
 }
 
 function useCourse(courseId: string) {
-    const { data, error } = useRequest<DetailedCourse>({ url: `/course/${courseId}/detail` })
+    const { data, error, mutate } = useRequest<DetailedCourse>({ url: `/course/${courseId}/detail` })
     const notFound = error && error.response && (error.response.status === 404 || error.response.status === 422)
 
     return {
         course: data,
-        error: error,
-        notFound: notFound,
+        error,
+        notFound,
+        mutate,
         isLoading: !error && !data,
     }
 }

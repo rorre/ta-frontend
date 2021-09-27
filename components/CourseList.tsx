@@ -8,7 +8,11 @@ import Loader from './Loader'
 
 export default function CourseList() {
     const { user, error } = useUser()
-    const { data: courses, error: courseError } = useRequest<Course[]>({
+    const {
+        data: courses,
+        error: courseError,
+        mutate,
+    } = useRequest<Course[]>({
         url: '/course/available',
     })
     const isLoading = !courses && !courseError
@@ -31,7 +35,7 @@ export default function CourseList() {
                         className="grid grid-cols-1 md:grid-cols-2 space-y-4 md:space-y-0 md:space-x-4 py-2"
                     >
                         {twoCourses.map((course, j) => {
-                            return <CourseCard course={course} key={`course-${i}-${j}`} />
+                            return <CourseCard course={course} mutateCourse={mutate} key={`course-${i}-${j}`} />
                         })}
                     </div>
                 )

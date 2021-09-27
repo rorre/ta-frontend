@@ -64,8 +64,7 @@ function MobileNav() {
 }
 
 export default function NavBar() {
-    const { mutate } = useSWRConfig()
-    const { user, error, loggedOut } = useUser()
+    const { user, error, loggedOut, mutate } = useUser()
     const router = useRouter()
     const isLoading = !user && !error
 
@@ -75,9 +74,9 @@ export default function NavBar() {
         }
     }, [loggedOut])
 
-    function logOut() {
-        axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, { withCredentials: true })
-        mutate('/me')
+    async function logOut() {
+        await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, { withCredentials: true })
+        mutate()
         router.push('/')
     }
 

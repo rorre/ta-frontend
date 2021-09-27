@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
+import { KeyedMutator } from 'swr'
 import { Course } from '../../utils/types'
 import { FieldRow, FormField, SelectField } from './Fields'
 
@@ -16,6 +17,7 @@ interface CourseEditInputs {
 
 interface EditorProps {
     course?: Course | null
+    mutator?: KeyedMutator<any>
 }
 
 const matkulOpts = [
@@ -49,7 +51,7 @@ const matkulOpts = [
     },
 ]
 
-const Editor: React.FC<EditorProps> = ({ course = null }) => {
+const Editor: React.FC<EditorProps> = ({ course = null, mutator = null }) => {
     if (course) {
         matkulOpts.forEach((element) => {
             if (element.label == course.matkul) course.matkul = element.value
@@ -86,6 +88,7 @@ const Editor: React.FC<EditorProps> = ({ course = null }) => {
             })
             .then(() => {
                 router.push('/course')
+                if (mutator) mutator()
             })
     }
 

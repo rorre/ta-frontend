@@ -6,7 +6,7 @@ import { useCourse } from '../../../utils/fetchers'
 const EditCourse = () => {
     const router = useRouter()
     const { id } = router.query
-    const { course, error, isLoading } = useCourse(id as string)
+    const { course, error, isLoading, mutate } = useCourse(id as string)
 
     return isLoading ? (
         <Loader />
@@ -14,7 +14,7 @@ const EditCourse = () => {
         <>
             <h2 className="font-bold text-2xl pb-2">Edit Course</h2>
             <hr className="pb-2" />
-            <Editor course={course} />
+            <Editor course={course} mutator={mutate} />
         </>
     )
 }
