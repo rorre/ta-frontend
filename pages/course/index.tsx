@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useUser } from '../../utils/auth'
+import { useUser } from '../../utils/fetchers'
 import CourseList from '../../components/CourseList'
 import Link from 'next/link'
 

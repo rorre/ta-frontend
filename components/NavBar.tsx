@@ -1,4 +1,4 @@
-import { useUser } from '../utils/auth'
+import { useUser } from '../utils/fetchers'
 import Link from 'next/link'
 import axios from 'axios'
 import { useRouter } from 'next/router'

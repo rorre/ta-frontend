@@ -13,6 +13,8 @@
     "@hookform/error-message": "^2.0.0",
     "axios": "^0.21.4",
     "lodash": "^4.17.21",
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.33",
     "next": "latest",
     "nprogress": "^0.2.0",
     "react": "^17.0.2",

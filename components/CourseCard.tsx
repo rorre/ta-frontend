@@ -1,14 +1,34 @@
 import { Course } from '../utils/types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faScroll, faCalendar, faUser, faUserFriends, faPlus, faMinus, faEdit } from '@fortawesome/free-solid-svg-icons'
+import {
+    faScroll,
+    faCalendar,
+    faUser,
+    faUserFriends,
+    faPlus,
+    faMinus,
+    faEdit,
+    faTrash,
+} from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 import toast from 'react-hot-toast'
+import moment from 'moment-timezone'
+import { useUser } from '../utils/fetchers'
+import Link from 'next/link'
 
 interface CourseProps {
     course: Course
 }
 
 const CourseCard: React.FC<CourseProps> = ({ course }) => {
+    const { user } = useUser()
+    const courseTime = moment(course.datetime)
+    const currentTime = moment.tz('Asia/Jakarta')
+
+    const showEnroll = courseTime > currentTime && !course.is_enrolled
+    const showUnenroll = course.is_enrolled
+    const showAdmin = course.teacher == user.name
+
     async function enrollChange() {
         let path = course.is_enrolled ? 'unenroll' : 'enroll'
         toast.promise(
@@ -52,7 +72,7 @@ const CourseCard: React.FC<CourseProps> = ({ course }) => {
                     <div className="w-6 p-1 text-center">
                         <FontAwesomeIcon icon={faCalendar} />
                     </div>
-                    <span>{course.datetime}</span>
+                    <span>{moment(course.datetime).format('DD MMM YYYY hh:mm')}</span>
                 </div>
                 <div className="flex flex-row space-x-2 items-center">
                     <div className="w-6 p-1 text-center">
@@ -66,12 +86,22 @@ const CourseCard: React.FC<CourseProps> = ({ course }) => {
 
             <div className="absolute bottom-2 right-2">
                 <div className="flex flex-row space-x-2">
-                    <button className="rounded-md border bg-blue-600 text-white py-1 px-2" onClick={enrollChange}>
-                        {course.is_enrolled ? <FontAwesomeIcon icon={faMinus} /> : <FontAwesomeIcon icon={faPlus} />}
-                    </button>
-                    <button className="rounded-md border bg-yellow-600 text-white py-1 px-2">
-                        {course.is_enrolled ? <></> : <FontAwesomeIcon icon={faEdit} />}
-                    </button>
+                    {showAdmin ? (
+                        <>
+                            <Link href={`/course/${course.id}/edit`}>
+                                <button className="rounded-md border bg-yellow-600 text-white py-1 px-2">
+                                    <FontAwesomeIcon icon={faEdit} />
+                                </button>
+                            </Link>
+                            <button className="rounded-md border bg-red-600 text-white py-1 px-2">
+                                <FontAwesomeIcon icon={faTrash} />
+                            </button>
+                        </>
+                    ) : (
+                        <button className="rounded-md border bg-blue-600 text-white py-1 px-2" onClick={enrollChange}>
+                            {showEnroll ? <FontAwesomeIcon icon={faMinus} /> : <FontAwesomeIcon icon={faPlus} />}
+                        </button>
+                    )}
                 </div>
             </div>
         </div>

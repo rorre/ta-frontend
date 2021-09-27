@@ -1,6 +1,6 @@
 import axios from 'axios'
 import useSWR from 'swr'
-import { User } from './types'
+import { Course, User } from './types'
 import useRequest from './swr'
 
 function useUser() {
@@ -15,4 +15,13 @@ function useUser() {
     }
 }
 
-export { useUser }
+function useCourse(courseId: string) {
+    const { data, error } = useRequest<Course>({ url: `/course/${courseId}/detail` })
+    return {
+        course: data,
+        error: error,
+        isLoading: !error && !data,
+    }
+}
+
+export { useUser, useCourse }

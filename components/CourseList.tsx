@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useUser } from '../utils/auth'
+import { useUser } from '../utils/fetchers'
 import useSWR, { mutate } from 'swr'
 import { Course } from '../utils/types'
 import useRequest from '../utils/swr'
@@ -10,7 +10,7 @@ import _ from 'lodash'
 export default function CourseList() {
     const { user, error } = useUser()
     const { data: courses, error: courseError } = useRequest<Course[]>({
-        url: '/course/list',
+        url: '/course/available',
     })
 
     const chunkedCourses = _.chunk(courses, 2)

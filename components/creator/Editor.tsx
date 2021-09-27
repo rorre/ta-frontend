@@ -8,7 +8,7 @@ import { FieldRow, FormField, SelectField } from './Fields'
 interface CourseEditInputs {
     name: string
     matkul: string
-    datetime_: string
+    datetime: string
     students_limit: Number | null
     notes: string | null
     link: string | null
@@ -122,7 +122,7 @@ const Editor: React.FC<EditorProps> = ({ course = null }) => {
             </FieldRow>
             <FieldRow>
                 <FormField
-                    id="datetime_"
+                    id="datetime"
                     label="Date and Time"
                     placeholderText="When will the course starts?"
                     register={register}
