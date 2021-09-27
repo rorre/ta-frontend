@@ -9,41 +9,10 @@ import _ from 'lodash'
 
 export default function CourseList() {
     const { user, error } = useUser()
-    //const { data: courses, error: courseError } = useRequest<Course[]>({
-    //    url: '/course/list',
-    //})
-    const courses: Course[] = [
-        {
-            id: 'asduhqdw',
-            name: 'SUPER SUPER SUPER SUPER SUPER SUPER SUPER SUPER SUPER SUPER SUPER SUPER SUPER SUPER SUPER ',
-            matkul: 'DDP',
-            datetime: '21 Desember 2021',
-            teacher: 'Budi my man',
-            students_count: 22,
-            students_limit: null,
-            is_enrolled: false,
-        },
-        {
-            id: 'asduhqdw',
-            name: 'DDP-0 Tutor',
-            matkul: 'DDP',
-            datetime: '21 Desember 2021',
-            teacher: 'Raden Mohamad Adrian Ramadhan Hendar Wibawa',
-            students_count: 22,
-            students_limit: null,
-            is_enrolled: false,
-        },
-        {
-            id: 'asduhqdw',
-            name: 'DDP-0 Tutor',
-            matkul: 'DDP',
-            datetime: '21 Desember 2021',
-            teacher: 'Budi my man',
-            students_count: 22,
-            students_limit: null,
-            is_enrolled: false,
-        },
-    ]
+    const { data: courses, error: courseError } = useRequest<Course[]>({
+        url: '/course/list',
+    })
+
     const chunkedCourses = _.chunk(courses, 2)
     const router = useRouter()
     if (error) {
