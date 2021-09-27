@@ -1,6 +1,6 @@
 import axios from 'axios'
 import useSWR from 'swr'
-import { Course, User } from './types'
+import { DetailedCourse, User } from './types'
 import useRequest from './swr'
 
 function useUser() {
@@ -16,10 +16,13 @@ function useUser() {
 }
 
 function useCourse(courseId: string) {
-    const { data, error } = useRequest<Course>({ url: `/course/${courseId}/detail` })
+    const { data, error } = useRequest<DetailedCourse>({ url: `/course/${courseId}/detail` })
+    const notFound = error && error.response && (error.response.status === 404 || error.response.status === 422)
+
     return {
         course: data,
         error: error,
+        notFound: notFound,
         isLoading: !error && !data,
     }
 }

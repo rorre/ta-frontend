@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import Editor from '../../../components/creator/Editor'
+import Loader from '../../../components/Loader'
 import { useCourse } from '../../../utils/fetchers'
 
 const EditCourse = () => {
@@ -8,7 +9,7 @@ const EditCourse = () => {
     const { course, error, isLoading } = useCourse(id as string)
 
     return isLoading ? (
-        <></>
+        <Loader />
     ) : (
         <>
             <h2 className="font-bold text-2xl pb-2">Edit Course</h2>

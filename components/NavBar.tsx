@@ -32,24 +32,28 @@ function MobileNav() {
                     <div className="px-1 py-1 ">
                         <Menu.Item>
                             {({ active }) => (
-                                <button
-                                    className={`${
-                                        active ? 'bg-blue-600 text-white' : ''
-                                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                                >
-                                    Course List
-                                </button>
+                                <Link href="/course/">
+                                    <button
+                                        className={`${
+                                            active ? 'bg-blue-600 text-white' : ''
+                                        } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                                    >
+                                        Course List
+                                    </button>
+                                </Link>
                             )}
                         </Menu.Item>
                         <Menu.Item>
                             {({ active }) => (
-                                <button
-                                    className={`${
-                                        active ? 'bg-blue-600 text-white' : ''
-                                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                                >
-                                    My Courses
-                                </button>
+                                <Link href="/course/mine">
+                                    <button
+                                        className={`${
+                                            active ? 'bg-blue-600 text-white' : ''
+                                        } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                                    >
+                                        My Courses
+                                    </button>
+                                </Link>
                             )}
                         </Menu.Item>
                     </div>

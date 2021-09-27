@@ -27,7 +27,7 @@ const CourseCard: React.FC<CourseProps> = ({ course }) => {
 
     const showEnroll = courseTime > currentTime && !course.is_enrolled
     const showUnenroll = course.is_enrolled
-    const showAdmin = course.teacher == user.name
+    const showAdmin = course.teacher_npm == user.npm
 
     async function enrollChange() {
         let path = course.is_enrolled ? 'unenroll' : 'enroll'
@@ -54,7 +54,10 @@ const CourseCard: React.FC<CourseProps> = ({ course }) => {
 
     return (
         <div className="flex flex-col space-y-4 rounded-lg px-8 pt-4 pb-8 border relative">
-            <h3 className="font-bold text-xl pt-2">{course.name}</h3>
+            <Link href={`/course/${course.id}/detail`}>
+                <h3 className="font-bold text-xl pt-2 hover:cursor-pointer hover:text-blue-600">{course.name}</h3>
+            </Link>
+
             <div className="grid grid-cols-1 xl:grid-cols-2 space-y-1">
                 <div className="flex flex-row space-x-2 items-center">
                     <div className="w-6 p-1 pr-2 text-center">

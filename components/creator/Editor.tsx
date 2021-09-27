@@ -50,6 +50,12 @@ const matkulOpts = [
 ]
 
 const Editor: React.FC<EditorProps> = ({ course = null }) => {
+    if (course) {
+        matkulOpts.forEach((element) => {
+            if (element.label == course.matkul) course.matkul = element.value
+        })
+    }
+
     const {
         control,
         register,
@@ -60,23 +66,24 @@ const Editor: React.FC<EditorProps> = ({ course = null }) => {
     const submitValue: SubmitHandler<CourseEditInputs> = (data) => {
         if (data.students_limit === '') data.students_limit = null
 
+        let targetUrl
+        if (course) {
+            targetUrl = `${process.env.NEXT_PUBLIC_API_URL}/course/${course.id}/update`
+        } else {
+            targetUrl = `${process.env.NEXT_PUBLIC_API_URL}/course/create`
+        }
         toast
-            .promise(
-                axios.post(`${process.env.NEXT_PUBLIC_API_URL}/course/create`, data, {
-                    withCredentials: true,
-                }),
-                {
-                    loading: 'Creating course...',
-                    success: 'Created!',
-                    error: (err) => {
-                        if (err.response) {
-                            return err.response.data.detail
-                        } else {
-                            return 'An error has occured.'
-                        }
-                    },
-                }
-            )
+            .promise(axios.post(targetUrl, data, { withCredentials: true }), {
+                loading: 'Submitting course...',
+                success: 'Submitted!',
+                error: (err) => {
+                    if (err.response) {
+                        return err.response.data.detail
+                    } else {
+                        return 'An error has occured.'
+                    }
+                },
+            })
             .then(() => {
                 router.push('/course')
             })
