@@ -5,6 +5,7 @@ import Router, { useRouter } from 'next/router'
 import NProgress from 'nprogress'
 import { useEffect } from 'react'
 import NavBar from '../components/NavBar'
+import { Toaster } from 'react-hot-toast'
 
 function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter()
@@ -16,6 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     return (
         <div>
+            <Toaster />
             {router.asPath != '/' && <NavBar />}
             <div className="container py-8 px-8 sm:px-16 md:px-32 ">
                 <Component {...pageProps} />

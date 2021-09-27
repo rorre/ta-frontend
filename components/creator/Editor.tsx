@@ -57,20 +57,29 @@ const Editor: React.FC<EditorProps> = ({ course = null }) => {
         handleSubmit,
     } = useForm<CourseEditInputs>({ defaultValues: course })
     const router = useRouter()
-    const submitValue: SubmitHandler<CourseEditInputs> = async (data) => {
-        try {
-            let response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/course/create`, data, {
-                withCredentials: true,
+    const submitValue: SubmitHandler<CourseEditInputs> = (data) => {
+        if (data.students_limit === '') data.students_limit = null
+
+        toast
+            .promise(
+                axios.post(`${process.env.NEXT_PUBLIC_API_URL}/course/create`, data, {
+                    withCredentials: true,
+                }),
+                {
+                    loading: 'Creating course...',
+                    success: 'Created!',
+                    error: (err) => {
+                        if (err.response) {
+                            return err.response.data.detail
+                        } else {
+                            return 'An error has occured.'
+                        }
+                    },
+                }
+            )
+            .then(() => {
+                router.push('/course')
             })
-            toast('Done!')
-            router.push('/course')
-        } catch (e) {
-            if (e.response) {
-                toast.error(e.response.data.detail)
-            } else {
-                toast.error('An error has occured.')
-            }
-        }
     }
 
     return (
@@ -92,7 +101,7 @@ const Editor: React.FC<EditorProps> = ({ course = null }) => {
                         },
                     }}
                     errors={errors}
-                    useErrorMessage={false}
+                    useErrorMessage={true}
                 />
 
                 <SelectField
@@ -108,7 +117,7 @@ const Editor: React.FC<EditorProps> = ({ course = null }) => {
                             message: 'You need to fill in the subject.',
                         },
                     }}
-                    useErrorMessage={false}
+                    useErrorMessage={true}
                 />
             </FieldRow>
             <FieldRow>
@@ -125,7 +134,7 @@ const Editor: React.FC<EditorProps> = ({ course = null }) => {
                     }}
                     type="datetime-local"
                     errors={errors}
-                    useErrorMessage={false}
+                    useErrorMessage={true}
                 />
 
                 <FormField

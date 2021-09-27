@@ -2,6 +2,7 @@ import { Course } from '../utils/types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faScroll, faCalendar, faUser, faUserFriends, faPlus, faMinus, faEdit } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
+import toast from 'react-hot-toast'
 
 interface CourseProps {
     course: Course
@@ -10,14 +11,25 @@ interface CourseProps {
 const CourseCard: React.FC<CourseProps> = ({ course }) => {
     async function enrollChange() {
         let path = course.is_enrolled ? 'unenroll' : 'enroll'
-        try {
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/course/${course.id}/${path}`, null, {
+        toast.promise(
+            axios.post(`${process.env.NEXT_PUBLIC_API_URL}/course/${course.id}/${path}`, null, {
                 withCredentials: true,
-            })
-            course.is_enrolled = !course.is_enrolled
-        } catch (e) {
-            console.log('An error occured.')
-        }
+            }),
+            {
+                loading: 'Enrolling...',
+                success: () => {
+                    course.is_enrolled = !course.is_enrolled
+                    return 'Enrolled!'
+                },
+                error: (err) => {
+                    if (err.response) {
+                        return err.response.data.detail
+                    } else {
+                        return 'An error has occured.'
+                    }
+                },
+            }
+        )
     }
 
     return (
