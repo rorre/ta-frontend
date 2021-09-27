@@ -23,7 +23,7 @@ export default function Home() {
         )
         window.addEventListener('message', (event) => {
             openedWindow.close()
-            mutate(`${process.env.NEXT_PUBLIC_API_URL}/me`)
+            mutate('/me')
         })
     }
 

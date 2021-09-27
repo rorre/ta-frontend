@@ -4,7 +4,7 @@ import { User } from './types'
 import useRequest from './swr'
 
 function useUser() {
-    const { data, error } = useRequest<User>({ url: `${process.env.NEXT_PUBLIC_API_URL}/me` })
+    const { data, error } = useRequest<User>({ url: '/me' })
     const loggedOut = error && error.response && error.response.status === 401
 
     return {

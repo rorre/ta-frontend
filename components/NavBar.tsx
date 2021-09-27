@@ -73,7 +73,7 @@ export default function NavBar() {
 
     function logOut() {
         axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, { withCredentials: true })
-        mutate(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`)
+        mutate('/me')
         router.push('/')
     }
 

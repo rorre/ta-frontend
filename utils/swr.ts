@@ -18,6 +18,7 @@ export default function useRequest<Data = unknown, Error = unknown>(
     request: GetRequest,
     { fallbackData, ...config }: Config<Data, Error> = {}
 ): Return<Data, Error> {
+    request.url = `${process.env.NEXT_PUBLIC_API_URL}` + request.url
     const {
         data: response,
         error,
