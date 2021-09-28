@@ -13,13 +13,23 @@ const CourseDetail = () => {
     const router = useRouter()
     const { id } = router.query
     const { user } = useUser()
-    const { course, notFound, isLoading, mutate } = useCourse(id as string)
+    const { course, error, notFound, isLoading, mutate } = useCourse(id as string)
     const [isAdmin, setIsAdmin] = useState(false)
 
-    if (notFound) {
-        router.push('/course')
-        toast.error('Course not found.')
-    }
+    useEffect(() => {
+        if (error && id !== undefined) {
+            if (error.response) {
+                if (notFound) {
+                    toast.error('Course not found.')
+                } else {
+                    toast.error(error.response.data.detail)
+                }
+            } else {
+                toast.error('An error has occured.')
+            }
+            router.replace('/course')
+        }
+    }, [course, error])
 
     useEffect(() => {
         setIsAdmin(course && user && course.teacher_npm == user.npm)
