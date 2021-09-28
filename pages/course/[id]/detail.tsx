@@ -32,14 +32,14 @@ const CourseDetail = () => {
             <hr className="pb-2" />
             {isAdmin && (
                 <div className="flex flex-row-reverse">
+                    <button className="rounded-md border bg-red-600 text-white py-1 px-2">
+                        <FontAwesomeIcon icon={faTrash} />
+                    </button>
                     <Link href={`/course/${course.id}/edit`}>
                         <button className="rounded-md border bg-yellow-600 text-white py-1 px-2">
                             <FontAwesomeIcon icon={faEdit} />
                         </button>
                     </Link>
-                    <button className="rounded-md border bg-red-600 text-white py-1 px-2">
-                        <FontAwesomeIcon icon={faTrash} />
-                    </button>
                 </div>
             )}
             <Course course={course} />
