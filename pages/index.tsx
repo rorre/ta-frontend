@@ -3,6 +3,8 @@ import { useRouter } from 'next/router'
 import { useUser } from '../utils/fetchers'
 import { useSWRConfig } from 'swr'
 import { useEffect } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 
 export default function Home() {
     const { user, loggedOut, mutate } = useUser()
@@ -40,6 +42,7 @@ export default function Home() {
                 </h1>
 
                 <button className="my-8 rounded-xl bg-blue-600 p-4 text-white" onClick={ssoLogin}>
+                    <FontAwesomeIcon icon={faSignInAlt} className="mx-2" />
                     Log in dengan SSO
                 </button>
             </main>

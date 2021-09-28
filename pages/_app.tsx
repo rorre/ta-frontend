@@ -2,6 +2,11 @@ import 'tailwindcss/tailwind.css'
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 import 'nprogress/nprogress.css'
 
+// https://fontawesome.com/v5.15/how-to-use/on-the-web/using-with/react#nextjs
+import { config } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+config.autoAddCss = false
+
 import { AppProps } from 'next/app'
 import Router, { useRouter } from 'next/router'
 
