@@ -1,5 +1,6 @@
 import 'tailwindcss/tailwind.css'
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
+import 'nprogress/nprogress.css'
 
 import { AppProps } from 'next/app'
 import Router, { useRouter } from 'next/router'
