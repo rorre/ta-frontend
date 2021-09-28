@@ -57,7 +57,7 @@ const CourseCard: React.FC<CourseProps> = ({ course, mutateCourse }) => {
                     <div className="w-6 p-1 text-center">
                         <FontAwesomeIcon icon={faCalendar} />
                     </div>
-                    <span>{moment(course.datetime).format('DD MMM YYYY hh:mm')}</span>
+                    <span>{moment(course.datetime).format('DD MMM YYYY HH:mm')}</span>
                 </div>
                 <div className="flex flex-row space-x-2 items-center">
                     <div className="w-6 p-1 text-center">

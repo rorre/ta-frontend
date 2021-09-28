@@ -39,7 +39,7 @@ const Course: React.FC<CourseProps> = ({ course }) => {
             <div className="grid grid-cols-1 md:grid-cols-2 space-y-4 md:space-y-0 md:space-x-4 py-2">
                 <div className="flex flex-col">
                     <div className="block text-gray-700 font-bold mb-2">Date and Time</div>
-                    <p>{moment(course.datetime).format('DD MMM YYYY hh:mm')}</p>
+                    <p>{moment(course.datetime).format('DD MMM YYYY HH:mm')}</p>
                 </div>
                 <div className="flex flex-col">
                     <div className="block text-gray-700 font-bold mb-2">Students</div>
