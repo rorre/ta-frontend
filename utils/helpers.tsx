@@ -5,16 +5,17 @@ import { KeyedMutator } from 'swr'
 
 function enrollChange(course: Course, mutator: KeyedMutator<any> = null) {
     let path = course.is_enrolled ? 'unenroll' : 'enroll'
+    let command = path.charAt(0).toUpperCase() + path.substr(1)
     toast
         .promise(
             axios.post(`${process.env.NEXT_PUBLIC_API_URL}/course/${course.id}/${path}`, null, {
                 withCredentials: true,
             }),
             {
-                loading: 'Enrolling...',
+                loading: command + 'ing...',
                 success: () => {
                     course.is_enrolled = !course.is_enrolled
-                    return 'Enrolled!'
+                    return command + 'ed!'
                 },
                 error: (err) => {
                     if (err.response) {
