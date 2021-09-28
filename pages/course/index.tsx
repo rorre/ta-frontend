@@ -3,9 +3,27 @@ import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react'
+import { enrollChange } from '../../utils/helpers'
+import { Course } from '../../utils/types'
 
 export default function CoursePage() {
+    const [classCode, setClassCode] = useState<string>('')
     const [currentPage, setPage] = useState<number>(1)
+
+    function enrollCourse() {
+        const fakeCourse: Course = {
+            id: classCode,
+            matkul: '',
+            name: '',
+            datetime: '',
+            teacher: '',
+            teacher_npm: 0,
+            students_count: 0,
+            students_limit: null,
+            is_enrolled: false,
+        }
+        enrollChange(fakeCourse)
+    }
 
     useEffect(() => {
         if (currentPage < 1) setPage(1)
@@ -15,9 +33,33 @@ export default function CoursePage() {
         <>
             <h2 className="font-bold text-2xl pb-2">Available Courses</h2>
             <hr className="pb-2" />
-            <div className="flex flex-row-reverse">
+            <div className="hidden md:grid grid-cols-11 space-x-2">
+                <input
+                    value={classCode}
+                    className="col-span-7 w-full border rounded-md p-3"
+                    placeholder="Input class code to enroll"
+                    onChange={(e) => setClassCode(e.target.value)}
+                />
+                <button className="col-span-2 rounded-xl bg-green-600 text-white" onClick={enrollCourse}>
+                    Enroll
+                </button>
                 <Link href="/course/create">
-                    <button className="rounded-xl bg-blue-600 py-2 px-4 text-white">New Course</button>
+                    <button className="col-span-2 rounded-xl bg-blue-600 text-white">New Course</button>
+                </Link>
+            </div>
+
+            <div className="md:hidden grid grid-rows-3 space-y-2">
+                <input
+                    value={classCode}
+                    className="w-full border rounded-md p-3"
+                    placeholder="Input class code to enroll"
+                    onChange={(e) => setClassCode(e.target.value)}
+                />
+                <button className="w-full rounded-xl bg-green-600 text-white" onClick={enrollCourse}>
+                    Enroll
+                </button>
+                <Link href="/course/create">
+                    <button className="w-full rounded-xl bg-blue-600 text-white">New Course</button>
                 </Link>
             </div>
 

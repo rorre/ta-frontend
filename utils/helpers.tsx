@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Course } from './types'
 import { KeyedMutator } from 'swr'
 
-function enrollChange(course: Course, mutator: KeyedMutator<any>) {
+function enrollChange(course: Course, mutator: KeyedMutator<any> = null) {
     let path = course.is_enrolled ? 'unenroll' : 'enroll'
     toast
         .promise(
@@ -18,6 +18,7 @@ function enrollChange(course: Course, mutator: KeyedMutator<any>) {
                 },
                 error: (err) => {
                     if (err.response) {
+                        if (err.response.status == 422) return 'Course not found!'
                         return err.response.data.detail
                     } else {
                         return 'An error has occured.'
@@ -26,7 +27,7 @@ function enrollChange(course: Course, mutator: KeyedMutator<any>) {
             }
         )
         .then(() => {
-            mutator()
+            if (mutator) mutator()
         })
 }
 
@@ -44,6 +45,7 @@ function deleteCourse(course: Course, mutator: KeyedMutator<any> = null) {
                 },
                 error: (err) => {
                     if (err.response) {
+                        if (err.response.status == 422) return 'Course not found!'
                         return err.response.data.detail
                     } else {
                         return 'An error has occured.'
