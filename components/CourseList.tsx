@@ -6,23 +6,17 @@ import CourseCard from './CourseCard'
 import _ from 'lodash'
 import Loader from './Loader'
 
-export default function CourseList() {
-    const { user, error } = useUser()
+export default function CourseList({ page }: { page: Number }) {
     const {
         data: courses,
         error: courseError,
         mutate,
     } = useRequest<Course[]>({
-        url: '/course/available',
+        url: '/course/available?page=' + page,
     })
     const isLoading = !courses && !courseError
     const chunkedCourses = _.chunk(courses, 2)
     const router = useRouter()
-    if (error) {
-        if (error.response) {
-            if (router.asPath != '/') router.push('/')
-        }
-    }
 
     return isLoading ? (
         <Loader />

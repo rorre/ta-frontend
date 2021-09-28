@@ -10,7 +10,7 @@ export default function Home() {
 
     useEffect(() => {
         if (user && !loggedOut) {
-            router.replace('/course')
+            router.push('/course')
         }
     }, [user, loggedOut])
 
