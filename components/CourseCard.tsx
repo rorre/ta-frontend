@@ -36,7 +36,7 @@ const CourseCard: React.FC<CourseProps> = ({ course, mutateCourse }) => {
 
     return (
         <div className="flex flex-col space-y-4 rounded-lg px-8 pt-4 pb-8 border relative">
-            {course.is_enrolled ? (
+            {course.is_enrolled || showAdmin ? (
                 <Link href={`/course/${course.id}/detail`}>
                     <h3 className="font-bold text-xl pt-2 hover:cursor-pointer hover:text-blue-600">{course.name}</h3>
                 </Link>
