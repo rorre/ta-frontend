@@ -53,7 +53,7 @@ const Course: React.FC<CourseProps> = ({ course }) => {
                 <div className="block text-gray-700 font-bold mb-2">Meet/Zoom URL</div>
                 {course.link ? (
                     <Link href={course.link}>
-                        <a>{course.link}</a>
+                        <a className="hover:text-blue-600">{course.link}</a>
                     </Link>
                 ) : (
                     <p>No link available.</p>
