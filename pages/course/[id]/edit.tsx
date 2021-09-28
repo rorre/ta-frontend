@@ -2,13 +2,19 @@ import { useRouter } from 'next/router'
 import Editor from '../../../components/creator/Editor'
 import Loader from '../../../components/Loader'
 import { useCourse } from '../../../utils/fetchers'
+import toast from 'react-hot-toast'
 
 const EditCourse = () => {
     const router = useRouter()
     const { id } = router.query
-    const { course, error, isLoading, mutate } = useCourse(id as string)
+    const { course, error, notFound, isLoading, mutate } = useCourse(id as string)
 
-    return isLoading ? (
+    if (notFound) {
+        router.push('/course')
+        toast.error('Course not found.')
+    }
+
+    return isLoading || !course ? (
         <Loader />
     ) : (
         <>
