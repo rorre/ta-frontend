@@ -92,7 +92,7 @@ const CourseCard: React.FC<CourseProps> = ({ course, mutateCourse }) => {
                             className="rounded-md border bg-blue-600 text-white py-1 px-2"
                             onClick={() => enrollChange(course, mutateCourse)}
                         >
-                            {showEnroll ? <FontAwesomeIcon icon={faMinus} /> : <FontAwesomeIcon icon={faPlus} />}
+                            {showEnroll ? <FontAwesomeIcon icon={faPlus} /> : <FontAwesomeIcon icon={faMinus} />}
                         </button>
                     )}
                 </div>
