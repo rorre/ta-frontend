@@ -66,6 +66,7 @@ const Editor: React.FC<EditorProps> = ({ course = null, mutator = null }) => {
     } = useForm<CourseEditInputs>({ defaultValues: course })
     const router = useRouter()
     const submitValue: SubmitHandler<CourseEditInputs> = (data) => {
+        // @ts-ignore
         if (data.students_limit === '') data.students_limit = null
 
         let targetUrl

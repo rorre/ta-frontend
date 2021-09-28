@@ -138,6 +138,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
                 control={control}
                 render={({ field: { onChange, value, name, ref } }) => (
                     <Select
+                        // @ts-ignore
                         inputRef={ref}
                         value={options.find((c) => c.value === value)}
                         name={name}
