@@ -6,13 +6,18 @@ import CourseCard from './CourseCard'
 import _ from 'lodash'
 import Loader from './Loader'
 
-export default function CourseList({ page }: { page: Number }) {
+interface CourseListProps {
+    endpoint: string
+    page: Number
+}
+
+const CourseList: React.FC<CourseListProps> = ({ endpoint, page = 1 }) => {
     const {
         data: courses,
         error: courseError,
         mutate,
     } = useRequest<Course[]>({
-        url: '/course/available?page=' + page,
+        url: `/course/${endpoint}?page=${page}`,
     })
     const isLoading = !courses && !courseError
     const chunkedCourses = _.chunk(courses, 2)
@@ -37,3 +42,5 @@ export default function CourseList({ page }: { page: Number }) {
         </>
     )
 }
+
+export default CourseList

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react'
 
-export default function CoursePage() {
+export default function MyCoursePage() {
     const [currentPage, setPage] = useState<number>(1)
 
     useEffect(() => {
@@ -13,7 +13,7 @@ export default function CoursePage() {
 
     return (
         <>
-            <h2 className="font-bold text-2xl pb-2">Available Courses</h2>
+            <h2 className="font-bold text-2xl pb-2">My Courses</h2>
             <hr className="pb-2" />
             <div className="flex flex-row-reverse">
                 <Link href="/course/create">
@@ -21,11 +21,11 @@ export default function CoursePage() {
                 </Link>
             </div>
 
-            <CourseList endpoint="available" page={currentPage} />
+            <CourseList endpoint="mine" page={currentPage} />
 
             {/* Preload next page */}
             <div className="hidden">
-                <CourseList endpoint="available" page={currentPage + 1} />
+                <CourseList endpoint="mine" page={currentPage + 1} />
             </div>
 
             <div className="flex flex-row justify-center space-x-4 py-4">
