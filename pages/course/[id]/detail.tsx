@@ -7,12 +7,13 @@ import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
 import Loader from '../../../components/Loader'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+import { deleteCourse } from '../../../utils/helpers'
 
 const CourseDetail = () => {
     const router = useRouter()
     const { id } = router.query
     const { user } = useUser()
-    const { course, error, notFound, isLoading } = useCourse(id as string)
+    const { course, notFound, isLoading, mutate } = useCourse(id as string)
     const [isAdmin, setIsAdmin] = useState(false)
 
     if (notFound) {
@@ -32,7 +33,14 @@ const CourseDetail = () => {
             <hr className="pb-2" />
             {isAdmin && (
                 <div className="flex flex-row-reverse">
-                    <button className="rounded-md border bg-red-600 text-white py-1 px-2">
+                    <button
+                        onClick={() => {
+                            deleteCourse(course)
+                            router.push('/course')
+                            mutate()
+                        }}
+                        className="rounded-md border bg-red-600 text-white py-1 px-2"
+                    >
                         <FontAwesomeIcon icon={faTrash} />
                     </button>
                     <Link href={`/course/${course.id}/edit`}>

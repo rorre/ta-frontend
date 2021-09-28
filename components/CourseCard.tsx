@@ -10,12 +10,12 @@ import {
     faEdit,
     faTrash,
 } from '@fortawesome/free-solid-svg-icons'
-import axios from 'axios'
-import toast from 'react-hot-toast'
 import moment from 'moment-timezone'
 import { useUser } from '../utils/fetchers'
 import Link from 'next/link'
 import { KeyedMutator, useSWRConfig } from 'swr'
+import { deleteCourse, enrollChange } from '../utils/helpers'
+import { useRouter } from 'next/router'
 
 interface CourseProps {
     course: Course
@@ -23,7 +23,7 @@ interface CourseProps {
 }
 
 const CourseCard: React.FC<CourseProps> = ({ course, mutateCourse }) => {
-    const { mutate } = useSWRConfig()
+    const router = useRouter()
     const { user, isLoading } = useUser()
     const courseTime = moment(course.datetime)
     const currentTime = moment.tz('Asia/Jakarta')
@@ -33,59 +33,6 @@ const CourseCard: React.FC<CourseProps> = ({ course, mutateCourse }) => {
     const showEnroll = courseTime > currentTime && !course.is_enrolled
     const showUnenroll = course.is_enrolled
     const showAdmin = course.teacher_npm == user.npm
-
-    function enrollChange() {
-        let path = course.is_enrolled ? 'unenroll' : 'enroll'
-        toast
-            .promise(
-                axios.post(`${process.env.NEXT_PUBLIC_API_URL}/course/${course.id}/${path}`, null, {
-                    withCredentials: true,
-                }),
-                {
-                    loading: 'Enrolling...',
-                    success: () => {
-                        course.is_enrolled = !course.is_enrolled
-                        return 'Enrolled!'
-                    },
-                    error: (err) => {
-                        if (err.response) {
-                            return err.response.data.detail
-                        } else {
-                            return 'An error has occured.'
-                        }
-                    },
-                }
-            )
-            .then(() => {
-                mutateCourse()
-            })
-    }
-
-    function deleteCourse() {
-        toast
-            .promise(
-                axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/course/${course.id}/delete`, {
-                    withCredentials: true,
-                }),
-                {
-                    loading: 'Removing...',
-                    success: () => {
-                        course.is_enrolled = !course.is_enrolled
-                        return 'Removed!'
-                    },
-                    error: (err) => {
-                        if (err.response) {
-                            return err.response.data.detail
-                        } else {
-                            return 'An error has occured.'
-                        }
-                    },
-                }
-            )
-            .then(() => {
-                mutateCourse()
-            })
-    }
 
     return (
         <div className="flex flex-col space-y-4 rounded-lg px-8 pt-4 pb-8 border relative">
@@ -132,14 +79,19 @@ const CourseCard: React.FC<CourseProps> = ({ course, mutateCourse }) => {
                                 </button>
                             </Link>
                             <button
-                                onClick={deleteCourse}
+                                onClick={() => {
+                                    deleteCourse(course, mutateCourse)
+                                }}
                                 className="rounded-md border bg-red-600 text-white py-1 px-2"
                             >
                                 <FontAwesomeIcon icon={faTrash} />
                             </button>
                         </>
                     ) : (
-                        <button className="rounded-md border bg-blue-600 text-white py-1 px-2" onClick={enrollChange}>
+                        <button
+                            className="rounded-md border bg-blue-600 text-white py-1 px-2"
+                            onClick={() => enrollChange(course, mutateCourse)}
+                        >
                             {showEnroll ? <FontAwesomeIcon icon={faMinus} /> : <FontAwesomeIcon icon={faPlus} />}
                         </button>
                     )}
