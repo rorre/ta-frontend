@@ -36,9 +36,13 @@ const CourseCard: React.FC<CourseProps> = ({ course, mutateCourse }) => {
 
     return (
         <div className="flex flex-col space-y-4 rounded-lg px-8 pt-4 pb-8 border relative">
-            <Link href={`/course/${course.id}/detail`}>
-                <h3 className="font-bold text-xl pt-2 hover:cursor-pointer hover:text-blue-600">{course.name}</h3>
-            </Link>
+            {course.is_enrolled ? (
+                <Link href={`/course/${course.id}/detail`}>
+                    <h3 className="font-bold text-xl pt-2 hover:cursor-pointer hover:text-blue-600">{course.name}</h3>
+                </Link>
+            ) : (
+                <h3 className="font-bold text-xl pt-2">{course.name}</h3>
+            )}
 
             <div className="grid grid-cols-1 xl:grid-cols-2 space-y-1">
                 <div className="flex flex-row space-x-2 items-center">
