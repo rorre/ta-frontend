@@ -63,14 +63,16 @@ const Course: React.FC<CourseProps> = ({ course }) => {
             <div className="w-full py-2">
                 <div className="block text-gray-700 font-bold mb-2">Notes</div>
                 {course.notes ? (
-                    <Markdown
-                        className={styles.postContent}
-                        // eslint-disable-next-line react/no-children-prop
-                        children={course.notes}
-                        options={{
-                            overrides: mdOverrides,
-                        }}
-                    />
+                    <div className="border rounded-md w-full p-3">
+                        <Markdown
+                            className={styles.postContent}
+                            // eslint-disable-next-line react/no-children-prop
+                            children={course.notes}
+                            options={{
+                                overrides: mdOverrides,
+                            }}
+                        />
+                    </div>
                 ) : (
                     <p>No notes available.</p>
                 )}
