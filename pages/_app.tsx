@@ -15,6 +15,7 @@ import { useEffect } from 'react'
 import NavBar from '../components/NavBar'
 import { Toaster } from 'react-hot-toast'
 import { DefaultSeo } from 'next-seo'
+import Head from 'next/head'
 
 function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter()
@@ -26,6 +27,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     return (
         <div>
+            <Head>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
             <DefaultSeo
                 titleTemplate="Tutor Angkatan CSUI21 | %s"
                 defaultTitle="Tutor Angkatan CSUI21"
