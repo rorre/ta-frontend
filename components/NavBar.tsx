@@ -1,14 +1,14 @@
 import { useUser } from '../utils/fetchers'
 import Link from 'next/link'
 import axios from 'axios'
-import { useRouter } from 'next/router'
-import { useSWRConfig } from 'swr'
+import { NextRouter, useRouter } from 'next/router'
+import { KeyedMutator, useSWRConfig } from 'swr'
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 
-function MobileNav() {
+function MobileNav({ isLoading, logout }: { isLoading: boolean; logout: () => {} }) {
     return (
         <Menu as="div" className="relative inline-block text-left">
             <div>
@@ -56,6 +56,20 @@ function MobileNav() {
                                 </Link>
                             )}
                         </Menu.Item>
+                        {!isLoading && (
+                            <Menu.Item>
+                                {({ active }) => (
+                                    <button
+                                        onClick={logout}
+                                        className={`${
+                                            active ? 'bg-blue-600 text-white' : ''
+                                        } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                                    >
+                                        Log Out
+                                    </button>
+                                )}
+                            </Menu.Item>
+                        )}
                     </div>
                 </Menu.Items>
             </Transition>
@@ -87,7 +101,7 @@ export default function NavBar() {
             </div>
 
             <div className="block lg:hidden">
-                <MobileNav />
+                <MobileNav isLoading={isLoading} logout={logOut} />
             </div>
 
             <div className="w-full hidden flex-grow lg:flex lg:items-center lg:w-auto">
