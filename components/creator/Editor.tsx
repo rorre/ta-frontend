@@ -152,9 +152,12 @@ const Editor: React.FC<EditorProps> = ({ course = null, mutator = null }) => {
                 <FormField
                     id="students_limit"
                     label="Student Limit"
-                    placeholderText=""
+                    placeholderText="You may set to 0 for no limit."
                     register={register}
                     type="number"
+                    validators={{
+                        min: 0,
+                    }}
                     errors={errors}
                     useErrorMessage={false}
                 />
