@@ -16,6 +16,7 @@ import { StylesConfig } from 'react-select'
 // Solution: https://github.com/vercel/next.js/issues/4515#issuecomment-706273622
 import dynamic from 'next/dynamic'
 import type SelectType from 'react-select'
+import { InputHTMLAttributes } from 'react'
 const Select = dynamic(() => import('react-select'), {
     ssr: false,
 }) as typeof SelectType
@@ -27,7 +28,7 @@ interface SelectOptions {
 
 type isMulti = false
 
-interface FormFieldProps {
+interface FormFieldProps extends InputHTMLAttributes<HTMLInputElement> {
     id: string
     label: string
     placeholderText: string
@@ -95,6 +96,7 @@ const FormField: React.FC<FormFieldProps> = ({
     errors,
     type = 'text',
     useErrorMessage = true,
+    ...props
 }) => {
     return (
         <div className="mb-4 md:mr-2 md:mb-0">
@@ -111,6 +113,7 @@ const FormField: React.FC<FormFieldProps> = ({
                 type={type}
                 placeholder={placeholderText}
                 autoComplete="on"
+                {...props}
             />
             {useErrorMessage && <ErrorMessage name={id} errors={errors} render={ErrorNotification} />}
         </div>

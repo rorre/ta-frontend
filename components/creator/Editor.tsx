@@ -159,7 +159,8 @@ const Editor: React.FC<EditorProps> = ({ course = null, mutator = null }) => {
                         min: 0,
                     }}
                     errors={errors}
-                    useErrorMessage={false}
+                    useErrorMessage={true}
+                    min={0}
                 />
             </FieldRow>
             <FormField
