@@ -20,3 +20,13 @@ export interface DetailedCourse extends Course {
     link: string
     notes: string
 }
+
+export interface ParseError {
+    loc: string[]
+    msg: string
+    type: string
+}
+
+export interface FetchError {
+    detail: string | ParseError[]
+}

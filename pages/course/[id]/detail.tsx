@@ -14,20 +14,12 @@ const CourseDetail = () => {
     const router = useRouter()
     const { id } = router.query
     const { user } = useUser()
-    const { course, error, notFound, isLoading, mutate } = useCourse(id as string)
+    const { course, error, notFound, isLoading, mutate, errorMessage } = useCourse(id as string)
     const [isAdmin, setIsAdmin] = useState(false)
 
     useEffect(() => {
         if (error && id !== undefined) {
-            if (error.response) {
-                if (notFound) {
-                    toast.error('Course not found.')
-                } else {
-                    toast.error(error.response.data.detail)
-                }
-            } else {
-                toast.error('An error has occured.')
-            }
+            toast.error(errorMessage)
             router.replace('/course')
         }
     }, [course, error])
