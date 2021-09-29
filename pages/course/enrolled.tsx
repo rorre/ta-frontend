@@ -1,9 +1,14 @@
 import CourseList from '../../components/CourseList'
 import Link from 'next/link'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react'
+import { enrollChange } from '../../utils/helpers'
+import { Course } from '../../utils/types'
+import EnrollBar from '../../components/EnrollBar'
 import Navigator from '../../components/Navigator'
 
-export default function MyCoursePage() {
+export default function EnrolledCoursePage() {
     const [currentPage, setPage] = useState<number>(1)
 
     useEffect(() => {
@@ -12,13 +17,9 @@ export default function MyCoursePage() {
 
     return (
         <>
-            <h2 className="font-bold text-2xl pb-2">My Courses</h2>
+            <h2 className="font-bold text-2xl pb-2">Enrolled Courses</h2>
             <hr className="pb-2" />
-            <div className="flex flex-row-reverse">
-                <Link href="/course/create">
-                    <button className="rounded-xl bg-blue-600 py-2 px-4 text-white">New Course</button>
-                </Link>
-            </div>
+            <EnrollBar showCreate={false} />
 
             <CourseList endpoint="mine" page={currentPage} />
 
