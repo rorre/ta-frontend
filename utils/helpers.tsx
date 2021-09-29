@@ -30,6 +30,7 @@ function enrollChange(course: Course, mutator: KeyedMutator<any> = null) {
         .then(() => {
             if (mutator) mutator()
         })
+        .catch(() => {})
 }
 
 function deleteCourse(course: Course, mutator: KeyedMutator<any> = null) {
@@ -57,6 +58,7 @@ function deleteCourse(course: Course, mutator: KeyedMutator<any> = null) {
         .then(() => {
             if (mutator) mutator()
         })
+        .catch(() => {})
 }
 
 export { enrollChange, deleteCourse }

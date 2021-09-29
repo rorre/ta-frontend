@@ -91,6 +91,7 @@ const Editor: React.FC<EditorProps> = ({ course = null, mutator = null }) => {
                 router.push('/course')
                 if (mutator) mutator()
             })
+            .catch(() => {})
     }
 
     return (
