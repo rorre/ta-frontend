@@ -14,6 +14,7 @@ import NProgress from 'nprogress'
 import { useEffect } from 'react'
 import NavBar from '../components/NavBar'
 import { Toaster } from 'react-hot-toast'
+import { DefaultSeo } from 'next-seo'
 
 function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter()
@@ -25,6 +26,12 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     return (
         <div>
+            <DefaultSeo
+                titleTemplate="Tutor Angkatan CSUI21 | %s"
+                defaultTitle="Tutor Angkatan CSUI21"
+                description="Website tutor sebaya untuk CSUI 2021."
+            />
+
             <Toaster />
             {router.asPath != '/' && <NavBar />}
             <div className="container py-8 px-8 sm:px-16 md:px-32 ">

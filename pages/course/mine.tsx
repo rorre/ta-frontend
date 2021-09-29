@@ -2,6 +2,7 @@ import CourseList from '../../components/CourseList'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import Navigator from '../../components/Navigator'
+import { NextSeo } from 'next-seo'
 
 export default function MyCoursePage() {
     const [currentPage, setPage] = useState<number>(1)
@@ -12,6 +13,7 @@ export default function MyCoursePage() {
 
     return (
         <>
+            <NextSeo title="My Courses" />
             <h2 className="font-bold text-2xl pb-2">My Courses</h2>
             <hr className="pb-2" />
             <div className="flex flex-row-reverse">

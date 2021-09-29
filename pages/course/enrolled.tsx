@@ -7,6 +7,7 @@ import { enrollChange } from '../../utils/helpers'
 import { Course } from '../../utils/types'
 import EnrollBar from '../../components/EnrollBar'
 import Navigator from '../../components/Navigator'
+import { NextSeo } from 'next-seo'
 
 export default function EnrolledCoursePage() {
     const [currentPage, setPage] = useState<number>(1)
@@ -17,6 +18,7 @@ export default function EnrolledCoursePage() {
 
     return (
         <>
+            <NextSeo title="Enrolled Courses" />
             <h2 className="font-bold text-2xl pb-2">Enrolled Courses</h2>
             <hr className="pb-2" />
             <EnrollBar showCreate={false} />

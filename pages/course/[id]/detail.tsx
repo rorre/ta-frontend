@@ -8,6 +8,7 @@ import Loader from '../../../components/Loader'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { deleteCourse } from '../../../utils/helpers'
+import { NextSeo } from 'next-seo'
 
 const CourseDetail = () => {
     const router = useRouter()
@@ -39,6 +40,7 @@ const CourseDetail = () => {
         <Loader />
     ) : (
         <>
+            <NextSeo title={course.name} />
             <h2 className="font-bold text-2xl pb-2">Course Details</h2>
             <hr className="pb-2" />
             {isAdmin && (
