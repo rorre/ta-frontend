@@ -21,11 +21,11 @@ export default function EnrolledCoursePage() {
             <hr className="pb-2" />
             <EnrollBar showCreate={false} />
 
-            <CourseList endpoint="mine" page={currentPage} />
+            <CourseList endpoint="enrolled" page={currentPage} />
 
             {/* Preload next page */}
             <div className="hidden">
-                <CourseList endpoint="mine" page={currentPage + 1} />
+                <CourseList endpoint="enrolled" page={currentPage + 1} />
             </div>
 
             <Navigator currentPage={currentPage} setPage={setPage} />
