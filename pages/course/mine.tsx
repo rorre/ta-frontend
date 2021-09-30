@@ -6,6 +6,7 @@ import { NextSeo } from 'next-seo'
 
 export default function MyCoursePage() {
     const [currentPage, setPage] = useState<number>(1)
+    const [isFull, setFull] = useState<boolean>(false)
 
     useEffect(() => {
         if (currentPage < 1) setPage(1)
@@ -22,14 +23,14 @@ export default function MyCoursePage() {
                 </Link>
             </div>
 
-            <CourseList endpoint="mine" page={currentPage} />
+            <CourseList setFull={setFull} endpoint="mine" page={currentPage} />
 
             {/* Preload next page */}
             <div className="hidden">
-                <CourseList endpoint="mine" page={currentPage + 1} />
+                <CourseList setFull={setFull} endpoint="mine" page={currentPage + 1} />
             </div>
 
-            <Navigator currentPage={currentPage} setPage={setPage} />
+            <Navigator isFull={isFull} currentPage={currentPage} setPage={setPage} />
         </>
     )
 }

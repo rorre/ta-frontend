@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useUser } from '../utils/fetchers'
 import { Course } from '../utils/types'
@@ -9,9 +10,10 @@ import Loader from './Loader'
 interface CourseListProps {
     endpoint: string
     page: Number
+    setFull: Dispatch<SetStateAction<boolean>>
 }
 
-const CourseList: React.FC<CourseListProps> = ({ endpoint, page = 1 }) => {
+const CourseList: React.FC<CourseListProps> = ({ endpoint, setFull, page = 1 }) => {
     const {
         data: courses,
         error: courseError,
@@ -22,6 +24,10 @@ const CourseList: React.FC<CourseListProps> = ({ endpoint, page = 1 }) => {
     const isLoading = !courses && !courseError
     const chunkedCourses = _.chunk(courses, 2)
     const router = useRouter()
+
+    useEffect(() => {
+        setFull(courses && courses.length == 10)
+    }, [courses])
 
     return isLoading ? (
         <Loader />
