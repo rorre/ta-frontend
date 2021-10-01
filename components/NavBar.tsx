@@ -8,6 +8,21 @@ import { Fragment, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 
+const LINKS = [
+    {
+        href: '/course',
+        text: 'Course List',
+    },
+    {
+        href: '/course/enrolled',
+        text: 'Enrolled Courses',
+    },
+    {
+        href: '/course/mine',
+        text: 'My Courses',
+    },
+]
+
 function MobileNav({ isLoading, logout }: { isLoading: boolean; logout: () => {} }) {
     return (
         <Menu as="div" className="relative inline-block text-left">
@@ -30,32 +45,23 @@ function MobileNav({ isLoading, logout }: { isLoading: boolean; logout: () => {}
                     style={{ width: '90vw' }}
                 >
                     <div className="px-1 py-1 ">
-                        <Menu.Item>
-                            {({ active }) => (
-                                <Link href="/course/">
-                                    <button
-                                        className={`${
-                                            active ? 'bg-blue-600 text-white' : ''
-                                        } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                                    >
-                                        Course List
-                                    </button>
-                                </Link>
-                            )}
-                        </Menu.Item>
-                        <Menu.Item>
-                            {({ active }) => (
-                                <Link href="/course/mine">
-                                    <button
-                                        className={`${
-                                            active ? 'bg-blue-600 text-white' : ''
-                                        } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                                    >
-                                        My Courses
-                                    </button>
-                                </Link>
-                            )}
-                        </Menu.Item>
+                        {LINKS.map((v, i) => {
+                            return (
+                                <Menu.Item>
+                                    {({ active }) => (
+                                        <Link key={`nav-${i}`} href={v.href}>
+                                            <button
+                                                className={`${
+                                                    active ? 'bg-blue-600 text-white' : ''
+                                                } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                                            >
+                                                {v.text}
+                                            </button>
+                                        </Link>
+                                    )}
+                                </Menu.Item>
+                            )
+                        })}
                         {!isLoading && (
                             <Menu.Item>
                                 {({ active }) => (
@@ -106,16 +112,15 @@ export default function NavBar() {
 
             <div className="w-full hidden flex-grow lg:flex lg:items-center lg:w-auto">
                 <div className="text-sm lg:flex-grow">
-                    <Link href="/course/">
-                        <a className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-blue-600 mr-4">
-                            Course List
-                        </a>
-                    </Link>
-                    <Link href="/course/mine">
-                        <a className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-blue-600 mr-4">
-                            My Courses
-                        </a>
-                    </Link>
+                    {LINKS.map((v, i) => {
+                        return (
+                            <Link key={`navdesktop-${i}`} href={v.href}>
+                                <a className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-blue-600 mr-4">
+                                    {v.text}
+                                </a>
+                            </Link>
+                        )
+                    })}
                 </div>
                 <div>
                     {isLoading ? (
