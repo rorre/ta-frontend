@@ -92,7 +92,10 @@ export default function NavBar() {
         if (loggedOut) {
             router.replace('/')
         }
-    }, [loggedOut])
+        if (user && !user.npm.toString().startsWith('21')) {
+            router.replace('/forbidden')
+        }
+    }, [user, loggedOut])
 
     async function logOut() {
         await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, { withCredentials: true })

@@ -37,7 +37,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             />
 
             <Toaster />
-            {router.asPath != '/' && <NavBar />}
+            {router.pathname != '/' && router.pathname != '/forbidden' && <NavBar />}
             <div className="container py-8 px-8 sm:px-16 md:px-32 ">
                 <Component {...pageProps} />
             </div>
