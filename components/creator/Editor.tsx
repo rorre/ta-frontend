@@ -95,100 +95,120 @@ const Editor: React.FC<EditorProps> = ({ course = null, mutator = null }) => {
     }
 
     return (
-        <form onSubmit={handleSubmit(submitValue)} className="md:flex flex-col space-y-3">
-            <FieldRow>
+        <>
+            <div className="bg-blue-600 text-white rounded-md border border-white p-4 mb-4">
+                <h3 className="text-lg font-bold">Notes</h3>
+                <div>
+                    <ul className="list-disc ml-8">
+                        <li>You may only have two upcoming classes at the same time.</li>
+                        <li>
+                            You can use markdown to format notes. If you don't know what that is,{' '}
+                            <a
+                                className="hover:text-gray-300"
+                                href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"
+                            >
+                                You can read the cheat sheet here
+                            </a>
+                            .
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <form onSubmit={handleSubmit(submitValue)} className="md:flex flex-col space-y-3">
+                <FieldRow>
+                    <FormField
+                        id="name"
+                        label="Course Name"
+                        placeholderText=""
+                        register={register}
+                        validators={{
+                            required: {
+                                value: true,
+                                message: 'You need to provide a name.',
+                            },
+                            maxLength: {
+                                value: 100,
+                                message: 'Course name exceeds 100 characters.',
+                            },
+                        }}
+                        errors={errors}
+                        useErrorMessage={true}
+                    />
+
+                    <SelectField
+                        id="matkul"
+                        label="Subject"
+                        placeholderText=""
+                        options={matkulOpts}
+                        control={control}
+                        errors={errors}
+                        validators={{
+                            required: {
+                                value: true,
+                                message: 'You need to fill in the subject.',
+                            },
+                        }}
+                        useErrorMessage={true}
+                    />
+                </FieldRow>
+                <FieldRow>
+                    <FormField
+                        id="datetime"
+                        label="Date and Time"
+                        placeholderText="When will the course starts?"
+                        register={register}
+                        validators={{
+                            required: {
+                                value: true,
+                                message: 'You need to provide the date and time.',
+                            },
+                        }}
+                        type="datetime-local"
+                        errors={errors}
+                        useErrorMessage={true}
+                    />
+
+                    <FormField
+                        id="students_limit"
+                        label="Student Limit"
+                        placeholderText="You may set to 0 for no limit."
+                        register={register}
+                        type="number"
+                        validators={{
+                            min: 0,
+                        }}
+                        errors={errors}
+                        useErrorMessage={true}
+                        min={0}
+                    />
+                </FieldRow>
                 <FormField
-                    id="name"
-                    label="Course Name"
+                    id="link"
+                    label="Meet/Zoom URL"
                     placeholderText=""
                     register={register}
-                    validators={{
-                        required: {
-                            value: true,
-                            message: 'You need to provide a name.',
-                        },
-                        maxLength: {
-                            value: 100,
-                            message: 'Course name exceeds 100 characters.',
-                        },
-                    }}
                     errors={errors}
-                    useErrorMessage={true}
+                    useErrorMessage={false}
                 />
+                <div className="mb-4 md:mr-2 md:mb-0">
+                    <label className="block text-gray-700 font-bold mb-2" htmlFor="notes">
+                        Notes
+                    </label>
 
-                <SelectField
-                    id="matkul"
-                    label="Subject"
-                    placeholderText=""
-                    options={matkulOpts}
-                    control={control}
-                    errors={errors}
-                    validators={{
-                        required: {
-                            value: true,
-                            message: 'You need to fill in the subject.',
-                        },
-                    }}
-                    useErrorMessage={true}
-                />
-            </FieldRow>
-            <FieldRow>
-                <FormField
-                    id="datetime"
-                    label="Date and Time"
-                    placeholderText="When will the course starts?"
-                    register={register}
-                    validators={{
-                        required: {
-                            value: true,
-                            message: 'You need to provide the date and time.',
-                        },
-                    }}
-                    type="datetime-local"
-                    errors={errors}
-                    useErrorMessage={true}
-                />
-
-                <FormField
-                    id="students_limit"
-                    label="Student Limit"
-                    placeholderText="You may set to 0 for no limit."
-                    register={register}
-                    type="number"
-                    validators={{
-                        min: 0,
-                    }}
-                    errors={errors}
-                    useErrorMessage={true}
-                    min={0}
-                />
-            </FieldRow>
-            <FormField
-                id="link"
-                label="Meet/Zoom URL"
-                placeholderText=""
-                register={register}
-                errors={errors}
-                useErrorMessage={false}
-            />
-            <div className="mb-4 md:mr-2 md:mb-0">
-                <label className="block text-gray-700 font-bold mb-2" htmlFor="notes">
-                    Notes
-                </label>
-
-                <textarea
-                    {...register('notes')}
-                    className="appearance-none border rounded w-full
+                    <textarea
+                        {...register('notes')}
+                        className="appearance-none border rounded w-full
                             py-2 px-3 text-gray-700 leading-tight
                             focus:outline-none hover:shadow focus:border-blue-600"
-                    id="notes"
-                    placeholder="Notes to be posted on site. Markdown supported."
-                />
-            </div>
-            <button type="submit" className="w-full rounded-xl bg-blue-600 p-2 text-white">
-                Submit
-            </button>
-        </form>
+                        id="notes"
+                        placeholder="Notes to be posted on site. Markdown supported."
+                    />
+                </div>
+                <button type="submit" className="w-full rounded-xl bg-blue-600 p-2 text-white">
+                    Submit
+                </button>
+            </form>
+        </>
     )
 }
 
