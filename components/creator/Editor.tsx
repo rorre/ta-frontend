@@ -102,7 +102,7 @@ const Editor: React.FC<EditorProps> = ({ course = null, mutator = null }) => {
                     <ul className="list-disc ml-8">
                         <li>You may only have two upcoming classes at the same time.</li>
                         <li>
-                            You can use markdown to format notes. If you don't know what that is,{' '}
+                            You can use markdown to format notes. If you don&apos;t know what that is,{' '}
                             <a
                                 className="hover:text-gray-300"
                                 href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"
