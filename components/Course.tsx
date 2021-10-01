@@ -3,6 +3,7 @@ import moment from 'moment-timezone'
 import Link from 'next/link'
 import Markdown from 'markdown-to-jsx'
 import styles from './CourseNotes.module.css'
+import toast from 'react-hot-toast'
 
 const TableWrapper: React.FC<React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableElement>, HTMLTableElement>> = ({
     children,
@@ -76,6 +77,22 @@ const Course: React.FC<CourseProps> = ({ course }) => {
                 ) : (
                     <p>No notes available.</p>
                 )}
+            </div>
+
+            <div className="w-full py-2">
+                <div className="block text-gray-700 font-bold mb-2">Course ID</div>
+                <div className="grid grid-cols-1 md:grid-cols-4 space-y-4 md:space-y-0 md:space-x-4">
+                    <div className="md:col-span-3 w-full border rounded-md p-3 bg-gray-200">{course.id}</div>
+                    <button
+                        onClick={() => {
+                            navigator.clipboard.writeText(course.id.toString())
+                            toast.success('Copied to clipboard!')
+                        }}
+                        className="p-3 rounded bg-blue-600 text-white text-center"
+                    >
+                        Copy Course ID
+                    </button>
+                </div>
             </div>
         </>
     )
