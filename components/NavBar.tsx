@@ -47,9 +47,9 @@ function MobileNav({ isLoading, logout }: { isLoading: boolean; logout: () => {}
                     <div className="px-1 py-1 ">
                         {LINKS.map((v, i) => {
                             return (
-                                <Menu.Item>
-                                    {({ active }) => (
-                                        <Link key={`nav-${i}`} href={v.href}>
+                                <Link key={`nav-${i}`} href={v.href}>
+                                    <Menu.Item>
+                                        {({ active }) => (
                                             <button
                                                 className={`${
                                                     active ? 'bg-blue-600 text-white' : ''
@@ -57,9 +57,9 @@ function MobileNav({ isLoading, logout }: { isLoading: boolean; logout: () => {}
                                             >
                                                 {v.text}
                                             </button>
-                                        </Link>
-                                    )}
-                                </Menu.Item>
+                                        )}
+                                    </Menu.Item>
+                                </Link>
                             )
                         })}
                         {!isLoading && (
