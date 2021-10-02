@@ -16,6 +16,7 @@ import NavBar from '../components/NavBar'
 import { Toaster } from 'react-hot-toast'
 import { DefaultSeo } from 'next-seo'
 import Head from 'next/head'
+import Footer from '../components/Footer'
 
 function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter()
@@ -37,9 +38,12 @@ function MyApp({ Component, pageProps }: AppProps) {
             />
 
             <Toaster />
-            {router.pathname != '/' && router.pathname != '/forbidden' && <NavBar />}
-            <div className="container py-8 px-8 sm:px-16 md:px-32 ">
-                <Component {...pageProps} />
+            <div className="flex flex-col min-h-screen">
+                {router.pathname != '/' && router.pathname != '/forbidden' && <NavBar />}
+                <div className="container py-8 px-8 sm:px-16 md:px-32 mx-auto">
+                    <Component {...pageProps} />
+                </div>
+                <Footer />
             </div>
         </div>
     )
