@@ -1,29 +1,35 @@
-# Next.js + Tailwind CSS Example
+# Tutor Angkatan Front-end
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v2.2)](https://blog.tailwindcss.com/tailwindcss-2-2) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+Front-end for Tutor Angkatan CSUI 2021. [Back-end repository is available here](https://github.com/rorre/ta-backend).
 
-It uses the new [`Just-in-Time Mode`](https://tailwindcss.com/docs/just-in-time-mode) for Tailwind CSS.
+Tutor Angkatan is a service that is available for CSUI 2021 to help one another in academics. It does so by letting other people to create an open course and schedule a Meet/Zoom call.
 
-## Preview
+Front-end uses Next.js and TypeScript.
 
-Preview the example live on [StackBlitz](http://stackblitz.com/):
+## Developing
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+### Requirements
 
-## Deploy your own
+-   NodeJS
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+### Installing
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+-   Install the project
 
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
+```
+$ npm run install
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+-   Create an empty .env file with the following structure
+
+```
+NEXT_PUBLIC_API_URL=<url_to_backend>
+```
+
+### Running
+
+Simply run `npm run dev`. To build, use `npm run build`.
+
+## Contributing
+
+See [CONTRIBUTING](CONTRIBUTING.md).
