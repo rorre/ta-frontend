@@ -4,6 +4,8 @@ import Link from 'next/link'
 import Markdown from 'markdown-to-jsx'
 import styles from './CourseNotes.module.css'
 import toast from 'react-hot-toast'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 const TableWrapper: React.FC<React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableElement>, HTMLTableElement>> = ({
     children,
@@ -92,6 +94,24 @@ const Course: React.FC<CourseProps> = ({ course }) => {
                     >
                         Copy Course ID
                     </button>
+                </div>
+            </div>
+
+            <div className="w-full py-2">
+                <div className="block text-gray-700 font-bold mb-2 border-b pb-2">Students</div>
+                <div className="flex flex-col space-y-2">
+                    {course.students.length ? (
+                        course.students.map((v, i) => {
+                            return (
+                                <div key={`student-` + i} className="flex flex-row items-center space-x-2">
+                                    <FontAwesomeIcon icon={faUser} />
+                                    <span>{v}</span>
+                                </div>
+                            )
+                        })
+                    ) : (
+                        <div>Nope, no one's here!</div>
+                    )}
                 </div>
             </div>
         </>

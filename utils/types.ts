@@ -19,6 +19,7 @@ export interface Course {
 export interface DetailedCourse extends Course {
     link: string
     notes: string
+    students: string[]
 }
 
 export interface ParseError {
