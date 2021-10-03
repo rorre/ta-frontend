@@ -110,7 +110,7 @@ const Course: React.FC<CourseProps> = ({ course }) => {
                             )
                         })
                     ) : (
-                        <div>Nope, no one's here!</div>
+                        <div>Nope, no one&#39;s here!</div>
                     )}
                 </div>
             </div>
