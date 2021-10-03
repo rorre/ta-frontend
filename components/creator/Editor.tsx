@@ -26,7 +26,7 @@ const matkulOpts = [
         value: 'ddp',
     },
     {
-        label: 'Matematika Diskrit',
+        label: 'MatDis',
         value: 'matdis',
     },
     {
