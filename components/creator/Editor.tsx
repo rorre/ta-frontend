@@ -198,7 +198,13 @@ const Editor: React.FC<EditorProps> = ({ course = null, mutator = null }) => {
                     placeholderText=""
                     register={register}
                     errors={errors}
-                    useErrorMessage={false}
+                    validators={{
+                        maxLength: {
+                            value: 100,
+                            message: 'Short notes exceeds 100 characters.',
+                        },
+                    }}
+                    useErrorMessage={true}
                 />
 
                 <div className="mb-4 md:mr-2 md:mb-0">
