@@ -115,7 +115,7 @@ const Editor: React.FC<EditorProps> = ({ course = null, mutator = null }) => {
                         </li>
                         <li>
                             Short notes will be shown in course cards in listing. Use this to put limitations or topic
-                            info such as "DDP-B only" or "Topic will be Python Function".
+                            info such as &quot;DDP-B only&quot; or &quot;Topic will be Python Function&quot;.
                         </li>
                         <li>
                             Hiding course will hide your course from Available Course listing, share the Course ID to

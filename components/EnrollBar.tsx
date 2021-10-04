@@ -20,6 +20,8 @@ const EnrollBar: React.FC<EnrollBarProps> = ({ showCreate = true }) => {
             students_count: 0,
             students_limit: null,
             is_enrolled: false,
+            notes_short: '',
+            hidden: true,
         }
         enrollChange(fakeCourse)
     }
