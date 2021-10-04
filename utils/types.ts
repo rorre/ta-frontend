@@ -14,6 +14,8 @@ export interface Course {
     students_count: Number
     students_limit: Number | null
     is_enrolled: boolean
+    notes_short: string
+    hidden: boolean
 }
 
 export interface DetailedCourse extends Course {
