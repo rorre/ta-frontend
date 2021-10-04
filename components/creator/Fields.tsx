@@ -112,7 +112,7 @@ const FormField: React.FC<FormFieldProps> = ({
                 id={id}
                 type={type}
                 placeholder={placeholderText}
-                autoComplete="on"
+                autoComplete="off"
                 {...props}
             />
             {useErrorMessage && <ErrorMessage name={id} errors={errors} render={ErrorNotification} />}
