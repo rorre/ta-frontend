@@ -106,12 +106,20 @@ const Editor: React.FC<EditorProps> = ({ course = null, mutator = null }) => {
                         <li>
                             You can use markdown to format notes. If you don&apos;t know what that is,{' '}
                             <a
-                                className="hover:text-gray-300"
+                                className="hover:text-gray-300 underline"
                                 href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"
                             >
-                                You can read the cheat sheet here
+                                you can read the cheat sheet here
                             </a>
                             .
+                        </li>
+                        <li>
+                            Short notes will be shown in course cards in listing. Use this to put limitations or topic
+                            info such as "DDP-B only" or "Topic will be Python Function".
+                        </li>
+                        <li>
+                            Hiding course will hide your course from Available Course listing, share the Course ID to
+                            your students so they can use it to enroll.
                         </li>
                     </ul>
                 </div>
