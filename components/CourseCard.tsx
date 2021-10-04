@@ -71,8 +71,9 @@ const CourseCard: React.FC<CourseProps> = ({ course, mutateCourse }) => {
                         {course.students_count} / {course.students_limit || 'inf'}
                     </span>
                 </div>
-                {course.notes_short && <div className="border-t py-1 text-gray-500">{course.notes_short}</div>}
             </div>
+
+            {course.notes_short && <div className="border-t py-1 text-gray-500">{course.notes_short}</div>}
 
             <div className="absolute bottom-2 right-2">
                 <div className="flex flex-row space-x-2">
