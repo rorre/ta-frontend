@@ -21,14 +21,14 @@ const EditCourse = () => {
 
     useEffect(() => {
         if (course && user) {
-            if (course.teacher_npm != user.npm) {
+            if (course.teacher_npm != user.npm && !user.is_admin) {
                 toast.error('You are not allowed to do so.')
                 router.replace('/course')
             }
         }
     }, [course, user])
 
-    if (notFound) {
+    if (notFound && id !== undefined) {
         router.replace('/course')
         toast.error('Course not found.')
     }

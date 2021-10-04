@@ -31,8 +31,7 @@ const CourseCard: React.FC<CourseProps> = ({ course, mutateCourse }) => {
     if (isLoading) return <></>
 
     const showEnroll = courseTime > currentTime && !course.is_enrolled
-    const showUnenroll = course.is_enrolled
-    const showAdmin = course.teacher_npm == user.npm
+    const showAdmin = course.teacher_npm == user.npm || user.is_admin
 
     return (
         <div className="flex flex-col space-y-4 rounded-lg px-8 pt-4 pb-8 border relative">

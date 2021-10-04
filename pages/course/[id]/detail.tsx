@@ -25,7 +25,7 @@ const CourseDetail = () => {
     }, [course, error])
 
     useEffect(() => {
-        setIsAdmin(course && user && course.teacher_npm == user.npm)
+        setIsAdmin(course && user && (course.teacher_npm == user.npm || user.is_admin))
     }, [course, user])
 
     return isLoading || !course ? (

@@ -2,6 +2,7 @@ export interface User {
     npm: Number
     username: string
     name: string
+    is_admin: boolean
 }
 
 export interface Course {
