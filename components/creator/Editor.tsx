@@ -13,6 +13,8 @@ interface CourseEditInputs {
     students_limit: Number | null
     notes: string | null
     link: string | null
+    notes_short: string | null
+    hidden: boolean
 }
 
 interface EditorProps {
@@ -190,6 +192,15 @@ const Editor: React.FC<EditorProps> = ({ course = null, mutator = null }) => {
                     errors={errors}
                     useErrorMessage={false}
                 />
+                <FormField
+                    id="notes_short"
+                    label="Short Notes"
+                    placeholderText=""
+                    register={register}
+                    errors={errors}
+                    useErrorMessage={false}
+                />
+
                 <div className="mb-4 md:mr-2 md:mb-0">
                     <label className="block text-gray-700 font-bold mb-2" htmlFor="notes">
                         Notes
@@ -203,6 +214,17 @@ const Editor: React.FC<EditorProps> = ({ course = null, mutator = null }) => {
                         id="notes"
                         placeholder="Notes to be posted on site. Markdown supported."
                     />
+                </div>
+                <div className="flex flex-row space-x-2 items-center mb-4 md:mr-2 md:mb-0">
+                    <input
+                        {...register('hidden')}
+                        className="form-checkbox border rounded
+                            h-4 w-4 text-gray-700 leading-tight
+                            focus:outline-none hover:shadow focus:border-blue-600 hover:cursor-pointer"
+                        id="hidden"
+                        type="checkbox"
+                    />
+                    <span className="text-gray-700 font-bold">Hidden Course</span>
                 </div>
                 <button type="submit" className="w-full rounded-xl bg-blue-600 p-2 text-white">
                     Submit
