@@ -1,0 +1,6 @@
+site_name: TA Handbook
+site_url: https://ta.rorre.xyz/docs
+theme:
+    name: material
+markdown_extensions:
+    - admonition
