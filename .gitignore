@@ -34,3 +34,7 @@ yarn-error.log*
 # vercel
 .vercel
 public/docs
+
+# Sentry
+.sentryclirc
+sentry.properties
