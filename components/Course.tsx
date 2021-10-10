@@ -6,6 +6,8 @@ import styles from './CourseNotes.module.css'
 import toast from 'react-hot-toast'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
+import CourseStudents from './CourseStudents'
+import { useState } from 'react'
 
 const TableWrapper: React.FC<React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableElement>, HTMLTableElement>> = ({
     children,
@@ -25,7 +27,16 @@ const mdOverrides = {
         component: TableWrapper,
     },
 }
+
 const Course: React.FC<CourseProps> = ({ course }) => {
+    const [studentPage, setStudentPage] = useState(1)
+    const [isFull, setFull] = useState(false)
+    const [isLoading, setLoading] = useState(false)
+
+    const studentPages = []
+    for (let i = 1; i <= studentPage; i++) {
+        studentPages.push(<CourseStudents page={i} courseid={course.id} setFull={setFull} setLoading={setLoading} />)
+    }
     return (
         <>
             <div className="grid grid-cols-1 md:grid-cols-2 space-y-4 md:space-y-0 md:space-x-4 py-2">
@@ -100,15 +111,21 @@ const Course: React.FC<CourseProps> = ({ course }) => {
             <div className="w-full py-2">
                 <div className="block text-gray-700 font-bold mb-2 border-b pb-2">Students</div>
                 <div className="flex flex-col space-y-2">
-                    {course.students.length ? (
-                        course.students.map((v, i) => {
-                            return (
-                                <div key={`student-` + i} className="flex flex-row items-center space-x-2">
-                                    <FontAwesomeIcon icon={faUser} />
-                                    <span>{v}</span>
-                                </div>
-                            )
-                        })
+                    {course.students_count != 0 ? (
+                        <>
+                            {studentPages}{' '}
+                            <button
+                                className="mx-auto rounded-md p-2 px-4
+                                            disabled:cursor-not-allowed disabled:bg-white disabled:text-gray-500
+                                            bg-blue-600 text-white border"
+                                onClick={() => {
+                                    setStudentPage(studentPage + 1)
+                                }}
+                                disabled={isLoading || !isFull}
+                            >
+                                Load More
+                            </button>
+                        </>
                     ) : (
                         <div>Nope, no one&#39;s here!</div>
                     )}
